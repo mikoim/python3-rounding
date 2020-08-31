@@ -6,7 +6,6 @@ Created on Sep 22, 2013
 
 with open('README.rst') as f:
     long_description = f.read()
-    
 try:
     from setuptools import setup
 except ImportError:
@@ -21,9 +20,10 @@ config = {
     'install_requires': ['nose'],
     'packages': ['rounding'],
     'scripts': [],
-    'classifiers':[ 'Development Status :: 3 - Alpha',
-                   'Intended Audience :: Science/Research',
-                   'License :: OSI Approved :: Apache Software License' ],
+    'classifiers': ['Programming Language :: Python :: 3',
+                    'Development Status :: 3 - Alpha',
+                    'Intended Audience :: Science/Research',
+                    'License :: OSI Approved :: Apache Software License'],
 
     'license': 'Apache License, Version 2.0',
     'name': 'rounding',

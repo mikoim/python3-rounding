@@ -5,6 +5,7 @@ Created on Oct 6, 2013
 """
 
 import math
+
 from rounding.common import RounderBase
 
 
@@ -38,7 +39,7 @@ class StandardRound(RounderBase):
             result = math.ceil(scaled_x) / scale
         self._record_roundoff_error(x, result)
         return result
-         
+
 
 class RoundTowardEven(RounderBase):
     """
@@ -77,13 +78,13 @@ class RoundTowardEven(RounderBase):
 if __name__ == '__main__':
     num = 4.5
     count = 1000
-    expected =  num * count
-    
+    expected = num * count
+
     sr = StandardRound(precision=0)
     er = RoundTowardEven(precision=0)
-    
-    print "Expected: ", expected
-    print "Simple round: ", sum(round(num) for i in xrange(count))
-    print "Round toward even: ", sum(er.round(num) for i in xrange(count))
-    print "Standard Round: ", sum(sr.round(num) for i in xrange(count))
-    print "Error: ", sr.roundoff_error 
+
+    print("Expected: ", expected)
+    print("Simple round: ", sum(round(num) for i in range(count)))
+    print("Round toward even: ", sum(er.round(num) for i in range(count)))
+    print("Standard Round: ", sum(sr.round(num) for i in range(count)))
+    print("Error: ", sr.roundoff_error)

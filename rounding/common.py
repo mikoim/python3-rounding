@@ -18,18 +18,17 @@ class RounderBase(object):
         self.precision = precision
         self.cumulative_error = 0
         self.count = 0
-        
+
     def _get_fraction(self, x):
-        
-        scale = 10.0**self.precision
+        scale = 10.0 ** self.precision
         scaled_x = x * scale
         fraction = scaled_x - math.floor(scaled_x)
         return fraction, scaled_x, scale
-    
+
     def _record_roundoff_error(self, x, result):
         self.cumulative_error += result - x
         self.count += 1
-        
+
     @property
     def roundoff_error(self):
         return self.cumulative_error

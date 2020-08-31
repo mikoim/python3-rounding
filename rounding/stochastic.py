@@ -4,9 +4,11 @@ Created on Sep 21, 2013
 @author: dmaust
 """
 
-import random
 import math
+import random
+
 from rounding.common import RounderBase
+
 
 class StochasticRound(RounderBase):
     """
@@ -22,7 +24,7 @@ class StochasticRound(RounderBase):
     or invoking random.Random() with a fixed seed.
     """
 
-    def __init__(self, precision=0, random_generator=random.Random(), minimum_stochastic_distance=0):
+    def __init__(self, precision=0, random_generator=random.Random(), minimum_stochastic_distance=0.0):
         """
         Initialize the rounding object.
 
@@ -32,7 +34,7 @@ class StochasticRound(RounderBase):
         super(StochasticRound, self).__init__(precision=precision)
         self.random_generator = random_generator
         self.minimum_stochastic_distance = minimum_stochastic_distance
-        
+
     def round(self, x):
         """Round the given value.
         
@@ -41,8 +43,8 @@ class StochasticRound(RounderBase):
         """
         fraction, scaled_x, scale = self._get_fraction(x)
 
-        if fraction < self.minimum_stochastic_distance or 1-fraction <self.minimum_stochastic_distance:
-            result = round(x,self.precision)
+        if fraction < self.minimum_stochastic_distance or 1 - fraction < self.minimum_stochastic_distance:
+            result = round(x, self.precision)
 
         else:
             rounddown = fraction < self.random_generator.random()
@@ -53,7 +55,7 @@ class StochasticRound(RounderBase):
 
         self._record_roundoff_error(x, result)
         return result
-         
+
 
 def sround(x, precision=0):
     """
@@ -64,7 +66,8 @@ def sround(x, precision=0):
     """
     sr = StochasticRound(precision=precision)
     return sr.round(x)
-    
+
+
 if __name__ == '__main__':
     num = 5.3
     count = 1000
@@ -72,8 +75,8 @@ if __name__ == '__main__':
     r = random.Random()
     r.seed(123)
     sr = StochasticRound(precision=0, random_generator=r, minimum_stochastic_distance=0.25)
-    
-    print "Expected: ", expected
-    print "Simple round: ", sum(round(num) for i in xrange(count))
-    print "Stochastic Round: ", sum(sr.round(num) for i in xrange(count))
-    print "Error: ", sr.roundoff_error
+
+    print("Expected: ", expected)
+    print("Simple round: ", sum(round(num) for i in range(count)))
+    print("Stochastic Round: ", sum(sr.round(num) for i in range(count)))
+    print("Error: ", sr.roundoff_error)
